@@ -2,7 +2,6 @@
 import os
 import json
 import glob
-import SimpleITK as sitk
 import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image,ImageDraw
