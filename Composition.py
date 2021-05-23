@@ -4,7 +4,7 @@ Created on Fri Apr 16 09:12:44 2021
 
 @author: 53412
 """
-from predict import get_predict_box,show
+from predict import show
 import pandas as pd
 from PIL import Image,ImageFont, ImageDraw
 import get_annotation_test 
