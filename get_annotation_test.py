@@ -56,10 +56,10 @@ def get_accurate_point(point,class_,type_):
 
 def get_annotation_test():
     accurate_point=[]
-    test_data=r".\test\data"
+    test_data="./test/data"
     for filename in os.listdir(test_data):
         if os.path.splitext(filename)[1] == '.txt':
-            f=open(test_data+'\\'+filename)
+            f=open(test_data+'/'+filename)
             annotation=f.readlines()
             point_,class_,type_=get_target(annotation)
             accurate=get_accurate_point(point_,class_,type_)
