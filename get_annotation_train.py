@@ -4,11 +4,8 @@ Created on Sun Apr 11 19:33:26 2021
 
 @author: 53412
 """
-# 从所有的dicom文件中找出json文件中若干组序列号相对应的若干个dicom文件，并将它们的标注信息与相应的dicom文件保存在数组中对应起来，其余dicom文件并没有标注信息，无法使用
 import os
-import json
 import glob
-import SimpleITK as sitk
 import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image,ImageDraw
@@ -194,11 +191,11 @@ if __name__ == '__main__':
     
     f_=open("training_annotation_final.txt","w")
     annotation=[]
-    train_data=r".\train\data"
-    test_data_path=r".\test\data"
+    train_data="./train/data"
+    test_data_path="./test/data"
     for filename in os.listdir(train_data):
         if os.path.splitext(filename)[1] == '.txt':
-            f=open(train_data+'\\'+filename)
+            f=open(train_data+'/'+filename)
             if filename=="study82.txt" or filename=="study164.txt" or filename=="study77.txt":
                 continue
             annotation=f.readlines()
@@ -217,11 +214,11 @@ if __name__ == '__main__':
     #
     f_=open("testing_annotation_final.txt","w")
     annotation=[]
-    train_data=r".\train\data"
-    test_data=r".\test\data"
+    train_data="./train/data"
+    test_data="./test/data"
     for filename in os.listdir(test_data):
         if os.path.splitext(filename)[1] == '.txt':
-            f=open(test_data+'\\'+filename)
+            f=open(test_data+'/'+filename)
             annotation=f.readlines()
             point_,class_,type_=get_target(annotation)
             text,boxes,biggest,sacrum=get_box(point_,class_,type_)  #获得目标检测框的数据
