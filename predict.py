@@ -1,4 +1,4 @@
-from yolo import YOLO
+from net_base.yolo import YOLO
 from PIL import Image
 
 
