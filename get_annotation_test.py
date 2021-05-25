@@ -1,7 +1,6 @@
 # 从所有的dicom文件中找出json文件中若干组序列号相对应的若干个dicom文件，并将它们的标注信息与相应的dicom文件保存在数组中对应起来，其余dicom文件并没有标注信息，无法使用
 import os
 import glob
-import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image,ImageDraw
 import numpy as np
