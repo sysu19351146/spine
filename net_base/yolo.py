@@ -1,6 +1,3 @@
-#-------------------------------------#
-#       创建YOLO类
-#-------------------------------------#
 import cv2
 import numpy as np
 import colorsys
@@ -14,10 +11,7 @@ from torch.autograd import Variable
 from net_base.config import Config
 from net_base.utils import non_max_suppression2, bbox_iou, DecodeBox,letterbox_image,yolo_correct_boxes
 
-#--------------------------------------------#
-#   使用自己训练好的模型预测需要修改2个参数
-#   model_path和classes_path都需要修改！
-#--------------------------------------------#
+
 class YOLO(object):
     _defaults = {
         "model_image_size" : (416, 416),
@@ -33,9 +27,8 @@ class YOLO(object):
         else:
             return "Unrecognized attribute name '" + n + "'"
 
-    #---------------------------------------------------#
+
     #   初始化YOLO
-    #---------------------------------------------------#
     def __init__(self,model_path,classes_path,max_box):
         self.model_path=model_path
         self.classes_path=classes_path
@@ -44,24 +37,21 @@ class YOLO(object):
         self.class_names = self._get_class()
         self.config = Config
         self.generate()
-    #---------------------------------------------------#
+ 
     #   获得所有的分类
-    #---------------------------------------------------#
     def _get_class(self):
         classes_path = os.path.expanduser(self.classes_path)
         with open(classes_path) as f:
             class_names = f.readlines()
         class_names = [c.strip() for c in class_names]
         return class_names
-    #---------------------------------------------------#
+
     #   获得所有的分类
-    #---------------------------------------------------#
     def generate(self):
         self.config["yolo"]["classes"] = len(self.class_names)
         self.net = YoloBody(self.config)
         
-        # 加快模型训练的效率
-        # print('Loading weights into state dict...')
+        # GPU加快模型训练的效率
         device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
         state_dict = torch.load(self.model_path, map_location=device)
         self.net.load_state_dict(state_dict)
@@ -89,9 +79,8 @@ class YOLO(object):
             map(lambda x: (int(x[0] * 255), int(x[1] * 255), int(x[2] * 255)),
                 self.colors))
 
-    #---------------------------------------------------#
+
     #   检测图片
-    #---------------------------------------------------#
     def detect_image(self, image):
         image_shape = np.array(np.shape(image)[0:2])
 
@@ -157,7 +146,7 @@ class YOLO(object):
             label = label.encode('utf-8')
             str1=str1+" {},{},{},{},{}".format(top,bottom,left,right,c)
             box_label.append([top,bottom,left,right,c])
-            # print(label)
+
             
             if top - label_size[1] >= 0:
                 text_origin = np.array([left, top - label_size[1]])
