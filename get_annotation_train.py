@@ -6,7 +6,6 @@ Created on Sun Apr 11 19:33:26 2021
 """
 import os
 import glob
-import pandas as pd
 import matplotlib.pyplot as plt
 from PIL import Image,ImageDraw
 import numpy as np
