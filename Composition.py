@@ -5,13 +5,11 @@ Created on Fri Apr 16 09:12:44 2021
 @author: 53412
 """
 from predict import show
-import pandas as pd
 from PIL import Image,ImageFont, ImageDraw
 import get_annotation_test 
 import numpy as np
 from classification import *
 from model import *
-from tqdm import tqdm
 import time
 import warnings
 
@@ -564,10 +562,7 @@ time_start=time.time()
 all_accu=np.zeros(11)             #每一类的准确率
 all_mse=np.zeros(11)              #每一类的均方误差                        
 
-# model1=ResNet(BasicBlock, [2, 2, 2, 2])
-# model2=ResNet(BasicBlock, [2, 2, 2, 2])
-# model1=torch.load("Resnet18_T.pth")
-# model2=torch.load("Resnet18_L.pth")
+
 net_pths=('./net_fpn.pth','./net_pred1.pth','./net_pred2.pth','./net_pred3.pth')
 net_fpn = torch.load(net_pths[0]).eval()
 net_pred1 = torch.load(net_pths[1])
@@ -576,11 +571,7 @@ net_pred3 = torch.load(net_pths[3])
 
 
 
-
-
-aaa=[]
 for i in range(total_size):
-# with tqdm(total=11,desc="{}/{}".format(i+1,total_size)) as pbar:
     fake_one=[]
     for j in range(11):
         mse+=pow(class_list[i].point_list[j][0]-real_point[i][j][1],2)   #计算水平和竖直距离的平方和
@@ -591,57 +582,14 @@ for i in range(total_size):
                 all_accu[j]+=1
             if class_list[i].class_[j]==-1:      #若是构造出来的点则放入另一个网络继续分类
                 fake_one.append(j)
-                # h=class_list[i].L[0][1]-class_list[i].L[0][0]
-                # w=h*1.5
-                # box=get_box(class_list[i].point_list[j],h,w)
-                # a=lines[i].split()
-                # image=a[0]
-                # image=Image.open(image)
-                # image=np.array(image)
-                # image=image[box[0]:box[1],box[2]:box[3]]
-                # image=Image.fromarray(image)
-                # aa=pred(image,0,model1,model2)
-                # aaa.append(aa)
-                #
-                # # image.save("compos/image_jian{}.jpg".format(compos))
-                # if aa+2==real_point[i][j][2]:
-                #     all_accu[j]+=1
-                #     compos_accu+=1
                 compos+=1
         else:    #椎骨分类
             if class_list[i].class_[j]==real_point[i][j][2]: #若是原来的点按照yolo的分类结果输出
                 all_accu[j]+=1
             if class_list[i].class_[j]==-1:   #若是构造出来的点则放入另一个网络继续分类
                 fake_one.append(j)
-                # h=class_list[i].L[0][1]-class_list[i].L[0][0]
-                # w=h*1.5
-                # # not1+=1
-                # box=get_box(class_list[i].point_list[j],h,w)
-                # a=lines[i].split()
-                # image=a[0]
-                # image=Image.open(image)
-                # image=np.array(image)
-                # image=image[box[0]:box[1],box[2]:box[3]]
-                # image=Image.fromarray(image)
-                # aa=pred(image,1,model1,model2)
-                # aaa.append(aa)
-                # # image.save("compos/image_zhui{}.jpg".format(compos))
-                #
-                # # h=class_list[i].point_list[j+1][0]-class_list[i].point_list[j-1][0]
-                # # w=h*1.5
-                # # box=get_box(class_list[i].point_list[j],h,w)
-                # # a=lines[i].split()
-                # # image=a[0]
-                # # image = Image.open(image)
-                # # image = np.array(image)
-                # # image = image[box[0]:box[1], box[2]:box[3]]
-                # # aa=classification(image,class_list[i].point_list,j)
-                #
-                # if aa==real_point[i][j][2]:
-                #     compos_accu+=1
-                #     all_accu[j]+=1
                 compos+=1
-        # pbar.update(1)
+
    
     a=lines[i].split()
     image=a[0]
