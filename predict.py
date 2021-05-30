@@ -5,7 +5,7 @@ from PIL import Image
 
 #使用yolo模型对图片进行检测
 def show():
-    yolo = YOLO(model_path="logs/pre.pth",classes_path="model_data/new_classes.txt",max_box=13)
+    yolo = YOLO(model_path="pth/pre.pth",classes_path="classes/new_classes.txt",max_box=13)
     test_path="./testing_annotation_final.txt"
     with open(test_path) as f:
         lines = f.readlines()
