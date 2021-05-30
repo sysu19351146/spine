@@ -106,7 +106,7 @@ if __name__ == "__main__":
     ###模型读取预训练权重文件
     device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')   #GPU加速
     model_dict = model.state_dict()                                         #模型参数
-    pretrained_dict = torch.load("logs/pre.pth", map_location=device)       #读取预训练权重文件
+    pretrained_dict = torch.load("pth/pre.pth", map_location=device)       #读取预训练权重文件
     pretrained_dict = {k: v for k, v in pretrained_dict.items() if np.shape(model_dict[k]) ==  np.shape(v)}
     model_dict.update(pretrained_dict)
     model.load_state_dict(model_dict)
