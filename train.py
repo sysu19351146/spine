@@ -87,7 +87,7 @@ def train(net,yolo_losses,epoch,epoch_size,epoch_size_val,train_data,val_data):
             val_loss += loss
         print("epoch:{} iter：{}  val_loss:{}".format(epoch+1,iteration + 1,val_loss.item() / (iteration + 1)))
 
-    torch.save(model.state_dict(), 'logs/pre%d.pth'%((epoch+1)))   #保存pth文件
+    torch.save(model.state_dict(), 'pth/pre%d.pth'%((epoch+1)))   #保存pth文件
 
 
 if __name__ == "__main__":
