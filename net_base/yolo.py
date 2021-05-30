@@ -119,8 +119,6 @@ class YOLO(object):
         # 去掉灰条
         boxes = yolo_correct_boxes(top_ymin,top_xmin,top_ymax,top_xmax,np.array([self.model_image_size[0],self.model_image_size[1]]),image_shape)
 
-        font = ImageFont.truetype(font='model_data/simhei.ttf',size=np.floor(3e-2 * np.shape(image)[1] + 0.5).astype('int32'))
-
         thickness = (np.shape(image)[0] + np.shape(image)[1]) // self.model_image_size[0]
         str1=""
         box_label=[]
@@ -142,7 +140,7 @@ class YOLO(object):
             # 画框框
             label = '{} {:.2f}'.format(predicted_class, score)
             draw = ImageDraw.Draw(image)
-            label_size = draw.textsize(label, font)
+            label_size = draw.textsize(label)
             label = label.encode('utf-8')
             str1=str1+" {},{},{},{},{}".format(top,bottom,left,right,c)
             box_label.append([top,bottom,left,right,c])
@@ -159,7 +157,7 @@ class YOLO(object):
             draw.rectangle(
                 [tuple(text_origin), tuple(text_origin + label_size)],
                 fill=self.colors[self.class_names.index(predicted_class)])
-            draw.text(text_origin, str(label,'UTF-8'), font=font,fill=(0,0,0))
+            draw.text(text_origin, str(label,'UTF-8'),fill=(0,0,0))
             del draw
 
         return image,str1,box_label
