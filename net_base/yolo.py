@@ -8,8 +8,8 @@ from net_base.nets.yolo3 import YoloBody
 import torch.backends.cudnn as cudnn
 from PIL import Image,ImageFont, ImageDraw
 from torch.autograd import Variable
-from net_base.config import Config
-from net_base.utils import non_max_suppression2, bbox_iou, DecodeBox,letterbox_image,yolo_correct_boxes
+from net_base.util.config import Config
+from net_base.util.utils import non_max_suppression2, bbox_iou, DecodeBox,letterbox_image,yolo_correct_boxes
 
 
 class YOLO(object):
