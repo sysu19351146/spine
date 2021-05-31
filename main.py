@@ -620,6 +620,6 @@ for i in range(11):
         print("椎骨{}定位均方误差：{:.4f}，均方根误差为：{:.4f}\n分类准确率为：{:.4f}".format(i//2+1,all_mse[i]/total_size,pow(all_mse[i]/total_size,0.5),all_accu[i]/total_size))
 
 
-print("\n平均均方误差为：{:.4f}，\n平均均方根误差为：{:.4f}\n平均分类准确率为：{:.4f}".format(mse,rmse,(accu+compos_accu)/(11*total_size)))
+print("\n平均均方误差为：{:.4f}，\n平均均方根误差为：{:.4f}\n平均分类准确率为：{:.4f}".format(mse,rmse,(accu)/(11*total_size)))
 
 
